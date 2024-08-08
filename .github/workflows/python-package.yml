@@ -33,7 +33,7 @@ jobs:
         pip install -e DQN/gym-environments/
     
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd) DQN:${PYTHONPATH}" >> $GITHUB_ENV
+      run: echo "PYTHONPATH=$(pwd)/DQN:${PYTHONPATH}" >> $GITHUB_ENV
     
     - name: Test with pytest
       shell: bash -l {0}
