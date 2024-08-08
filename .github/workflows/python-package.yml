@@ -29,20 +29,20 @@ jobs:
     - name: Install dependencies
       run: |
         source $HOME/miniconda/bin/activate myenv
-        pip install -r DRL-GNN/DQN/requirements.txt
-        pip install -e DRL-GNN/DQN/gym-environments/
+        pip install -r DQN/requirements.txt
+        pip install -e DQN/gym-environments/
     
     - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=$(pwd)/DRL-GNN/DQN:${PYTHONPATH}" >> $GITHUB_ENV
+      run: echo "PYTHONPATH=$(pwd) DQN:${PYTHONPATH}" >> $GITHUB_ENV
     
     - name: Test with pytest
       shell: bash -l {0}
       run: |
         source $HOME/miniconda/bin/activate myenv
-        python DRL-GNN/DQN/train_DQN.py
+        python DQN/train_DQN.py
     
     - name: Evaluate model
       shell: bash -l {0}
       run: |
         source $HOME/miniconda/bin/activate myenv
-        python DRL-GNN/DQN/evaluate_DQN.py -d ./Logs/expsample_DQN_agentLogs.txt
+        python DQN/evaluate_DQN.py -d ./Logs/expsample_DQN_agentLogs.txt
