@@ -25,7 +25,6 @@ jobs:
         source $HOME/miniconda/bin/activate
         conda init bash
         conda create -n myenv python=3.9 -y
-        echo "source $HOME/miniconda/bin/activate myenv" >> $GITHUB_ENV
     
     - name: Install dependencies
       run: |
@@ -37,15 +36,13 @@ jobs:
       run: echo "PYTHONPATH=$(pwd)/DRL-GNN/DQN:${PYTHONPATH}" >> $GITHUB_ENV
     
     - name: Test with pytest
-      env:
-        PYTHONPATH: ${{ env.PYTHONPATH }}
+      shell: bash -l {0}
       run: |
         source $HOME/miniconda/bin/activate myenv
         python DRL-GNN/DQN/train_DQN.py
     
     - name: Evaluate model
-      env:
-        PYTHONPATH: ${{ env.PYTHONPATH }}
+      shell: bash -l {0}
       run: |
         source $HOME/miniconda/bin/activate myenv
         python DRL-GNN/DQN/evaluate_DQN.py -d ./Logs/expsample_DQN_agentLogs.txt
